@@ -19,7 +19,18 @@ class StackForm extends Component {
 
         this.setState({ cards })
     }
+    
+    updateCardPart( event, index, part ) {
+        const { cards } = this.state;
+                                               
+        cards[index][part] = event.target.value;
 
+        this.setState({ cards });
+    }
+
+    addStack() {
+        console.log("StackForm state", this.state)
+    }
 
     render() {
         return (
@@ -33,11 +44,35 @@ class StackForm extends Component {
                     <FormGroup>
                         <ControlLabel>Title:</ControlLabel>
                         {' '}
-                        <FormControl />
+                        <FormControl onChange={ event => this.setState({ title: event.target.value}) }/>
                     </FormGroup>
+                    {
+                        this.state.cards.map( (card,index) => {
+                            return (
+                                <div key={ card.id }>
+                                    <br />
+                                    <FormGroup>
+                                        <ControlLabel>Prompt:</ControlLabel>
+                                        {' '}
+                                        <FormControl 
+                                            onChange={ event => this.updateCardPart( event, index, 'prompt') }
+                                        />
+                                        {' '}
+                                        <ControlLabel>Answer:</ControlLabel>
+                                        {' '}
+                                        <FormControl
+                                            onChange={ event => this.updateCardPart( event, index, 'answer') }
+                                        />
+                                    </FormGroup>
+                                </div>
+                            )
+                        })
+                    }
                 </Form>
                 <br />
                 <Button onClick={() => this.addCard()}>Add Card</Button>
+                {' '}
+                <Button onClick={() => this.addStack()}>Save and Add the Stack</Button>
             </div>
         )
     }
