@@ -16,4 +16,4 @@ describe('App', () => {
   it('renders a link to create new stacks', () => {
     expect(app.find('Link h4').text()).toEqual('Create a New Stack');
   });
-});w
+});
