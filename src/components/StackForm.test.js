@@ -24,4 +24,31 @@ describe('StackForm', () => {
     it('renders a button to submit the form', () => {
         expect(stackForm.find('Button').at(1).props().children).toEqual('Save and Add the Stack');
     });
+
+    describe('and updating the title', () => {
+        beforeEach(() => {
+            stackForm.find('FormControl').simulate('change', { target: { value: 'change title' } });
+        });
+
+        it('updates the title in state', () => {
+            expect(stackForm.state().title).toEqual('change title');
+        });
+    });
+    describe('when adding a new card', () => {
+        beforeEach(() => {
+            stacForm.find('Button').at(0).simulate('click');
+        });
+
+        it('adds a new card to the state', () => {
+            expect(stackForm.state().cards.length).toEqual(1);
+        });
+
+        it('renders the prompt section', () => {
+            expect(stackForm.find('ControlLabel').at(1).props().children).toEqual('Prompt:');
+        });
+
+        it('renders the answer section', () => {
+            expect(stackForm.find('ControlLabel').at(2).props().children).toEqual('Answer:');
+        });
+    });
 });
